@@ -1,0 +1,33 @@
+{
+    "name": "Ubuntu Dev Environment",
+    "build": {
+      "dockerfile": "Dockerfile",
+      "context": "."
+  },// 先使用一个基础镜像
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash",
+                "editor.suggestSelection": "first",
+                "editor.wordWrap": "on",
+                "files.autoSave": "onFocusChange"
+            },
+            "extensions": [
+                "Vue.volar",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint",
+                "bradlc.vscode-tailwindcss",
+                "csstools.postcss"
+            ]
+        }
+    },
+    "forwardPorts": [],
+    "postCreateCommand": "echo '开发环境已准备好，欢迎使用！'",  // 创建容器后的初步信息输出
+    "remoteUser": "root",  // 使用 root 用户以确保有权限执行所有命令
+    "runArgs": [
+        "--privileged"  // 提供 Docker 相关命令执行所需权限
+    ],
+    "features": {
+        "docker-in-docker": "latest"  // 如果需要在 Codespace 中运行 Docker，启用 docker-in-docker 特性
+    }
+  }

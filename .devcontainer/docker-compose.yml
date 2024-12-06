@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  dev-environment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dev_environment
+    volumes:
+      - .:/workspace
+    ports:
+      - "8080:8080"  # 你可以根据需要暴露其他端口
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - PATH=$JAVA_HOME/bin:$PATH
+    tty: true
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_service
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # 设置 root 用户的密码
+      MYSQL_DATABASE: my_database         # 自动创建的数据库
+      MYSQL_USER: user                    # 创建的普通用户
+      MYSQL_PASSWORD: user_password       # 普通用户的密码
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
