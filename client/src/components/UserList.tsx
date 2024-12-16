@@ -3,7 +3,8 @@ import React from 'react';
 interface User {
   id: string;
   name: string;
-  status: 'online' | 'offline';
+  status: string;
+  currentState: string;
 }
 
 interface UserListProps {
@@ -17,7 +18,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
       <ul>
         {users.map((user) => (
           <li key={user.id}>
-            {user.name} ({user.status})
+            {user.name} ({user.status}) - {user.currentState}
           </li>
         ))}
       </ul>
