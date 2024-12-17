@@ -4,7 +4,7 @@ export const USER_STATUS = {
   OFFLINE: "离线",
   BUSY: "忙碌",
   INVISIBLE: "隐身",
-  AVAILABLE: "随时找我",
+  AVAILABLE: "求草",
 } as const;
 
 // 自动推断键类型
@@ -30,8 +30,28 @@ export const USER_ROLES = {
 // 自动推断角色类型
 export type UserRoleKey = keyof typeof USER_ROLES;
 
-// 默认用户设置
-export const DEFAULT_USER = {
-  status: "ONLINE" as UserStatusKey,
-  activityState: "WORK" as keyof typeof ACTIVITY_STATUS, // 工作
-} as const;
+// 用户对象定义
+export interface User {
+  id: string;
+  name: string;
+  status: UserStatusKey;
+  activityStatus: UserActivityKey;
+}
+
+// 房间状态定义
+export type RoomState = {
+  users: User[];
+  currentUser: User | null;
+};
+
+// 房间操作定义
+export type RoomAction =
+  | { type: "SET_CURRENT_USER"; payload: User }
+  | { type: "UPDATE_USERS"; payload: User[] }
+  | { type: "UPDATE_USER_STATUS"; payload: User };
+
+// 修复默认用户设置
+export const DEFAULT_USER: Pick<User, "status" | "activityStatus"> = {
+  status: "ONLINE",
+  activityStatus: "WORK", // 修正键名
+};

@@ -16,5 +16,8 @@
     "socket.io": "^4.8.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "socket.io-redis": "^5.4.0"
   }
 }

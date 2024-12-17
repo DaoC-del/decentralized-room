@@ -2,17 +2,17 @@ import React from "react";
 import { Layout, List, Avatar, Typography, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import StatusSelector from "./StatusSelector";
-import { useRoomSocket, User } from "../hooks/userRoomSocket";
-import { USER_STATUS,ACTIVITY_STATUS } from "../config/userConfig";
+import { useRoomSocket } from "../hooks/userRoomSocket";
+import { USER_STATUS, ACTIVITY_STATUS, User } from "../config/userConfig";
 
 const { Header, Sider, Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 const Room: React.FC = () => {
-  // 使用自定义 Hook 管理房间逻辑
+  // 自定义 Hook，用于管理房间逻辑
   const { users, currentUser, updateUserActivityStatus } = useRoomSocket();
 
-  // 用户点击行为
+  // 处理用户点击事件
   const handleUserClick = (user: User) => {
     message.info(`已选中用户：${user.name}`);
   };
@@ -21,7 +21,7 @@ const Room: React.FC = () => {
     <Layout style={{ minHeight: "100vh" }}>
       <Header style={{ color: "#fff", textAlign: "center" }}>
         <Title style={{ color: "#fff", margin: 0 }} level={3}>
-          Decentralized Room
+          去中心化房间
         </Title>
       </Header>
 
@@ -31,7 +31,7 @@ const Room: React.FC = () => {
           <List
             itemLayout="horizontal"
             dataSource={users}
-            renderItem={(user:User) => (
+            renderItem={(user: User) => (
               <List.Item onClick={() => handleUserClick(user)}>
                 <List.Item.Meta
                   avatar={<Avatar icon={<UserOutlined />} />}
@@ -46,9 +46,10 @@ const Room: React.FC = () => {
         <Content style={{ padding: "24px", background: "#f0f2f5" }}>
           {currentUser && (
             <>
-              <Title level={4}>Welcome, {currentUser.name}</Title>
+              <Title level={4}>欢迎, {currentUser.name}</Title>
+              <Paragraph>当前状态：{USER_STATUS[currentUser.status]}</Paragraph>
               <Paragraph>
-                当前状态：{USER_STATUS[currentUser.status]}
+                当前活动状态：{ACTIVITY_STATUS[currentUser.activityStatus]}
               </Paragraph>
               <StatusSelector
                 currentActivityStatus={currentUser.activityStatus}
