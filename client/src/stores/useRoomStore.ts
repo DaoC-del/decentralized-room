@@ -7,18 +7,22 @@ import { User, RoomState } from "../config/userConfig";
 interface RoomActions {
   setUsers: (users: User[]) => void;
   setCurrentUser: (user: User | null) => void;
+  getUsers:() => User[];
 }
 
 // 创建 Zustand Vanilla Store
-export const roomStore = createStore<RoomState & RoomActions>((set) => ({
+export const roomStore = createStore<RoomState & RoomActions>((set,getState) => ({
   users: [],
   currentUser: null,
 
   // 设置用户列表
-  setUsers: (users) => set({ users }),
+  setUsers: (users: User[]) => set(() => ({ users })),
 
   // 设置当前用户
-  setCurrentUser: (user) => set({ currentUser: user }),
+  setCurrentUser: (user: User | null) => set(() => ({ currentUser: user })),
+
+  getUsers: () => {
+    return getState().users; } // 使用 get() 访问状态
 }));
 
 // 导出用于 React 的 Hook
