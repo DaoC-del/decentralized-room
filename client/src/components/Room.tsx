@@ -10,8 +10,9 @@ const { Title, Paragraph } = Typography;
 
 const Room: React.FC = () => {
   // 自定义 Hook，用于管理房间逻辑
-  const { users, currentUser, updateUserActivityStatus } = useRoomSocket();
+  const { getUsers, currentUser, updateUserActivityStatus } = useRoomSocket();
 
+  const users=getUsers();
   // 处理用户点击事件
   const handleUserClick = (user: User) => {
     message.info(`已选中用户：${user.name}`);

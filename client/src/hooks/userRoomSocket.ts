@@ -45,5 +45,5 @@ export const useRoomSocket = () => {
     socket.emit("user_status_update", updatedUser);
   };
 
-  return { updateUserActivityStatus };
+  return {getUsers,currentUser, updateUserActivityStatus };
 };

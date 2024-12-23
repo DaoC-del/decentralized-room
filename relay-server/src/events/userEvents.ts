@@ -10,6 +10,8 @@ export interface User {
 export const registerUserEvents = (io: Server, socket: Socket, users: Record<string, User>) => {
   // 用户上线事件
   socket.on("user_online", (user: User) => {
+    console.log(user)
+    console.log(users)
     users[socket.id] = user;
     io.emit("update_users", Object.values(users));
   });
